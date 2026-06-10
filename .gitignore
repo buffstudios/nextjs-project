@@ -1,0 +1,100 @@
+# ==========================
+# Next.js
+# ==========================
+
+# Build output
+.next/
+out/
+build/
+dist/
+
+# ==========================
+# Dependencies
+# ==========================
+
+node_modules/
+.pnp
+.pnp.js
+
+# ==========================
+# Environment Variables
+# ==========================
+
+# All .env files
+.env
+.env.*
+.env.local
+.env.development
+.env.development.local
+.env.test
+.env.test.local
+.env.production
+.env.production.local
+
+# ==========================
+# Supabase
+# ==========================
+
+# Supabase local config and secrets
+supabase/.branches
+supabase/.temp
+
+# ==========================
+# Twilio
+# ==========================
+
+# Twilio CLI config
+.twilio-cli/
+
+# ==========================
+# Adyen
+# ==========================
+
+# Adyen credentials are stored in .env files above
+
+# ==========================
+# SendGrid
+# ==========================
+
+# SendGrid credentials are stored in .env files above
+
+# ==========================
+# Debugging & Logs
+# ==========================
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.log
+
+# ==========================
+# Testing
+# ==========================
+
+/coverage
+
+# ==========================
+# TypeScript
+# ==========================
+
+*.tsbuildinfo
+next-env.d.ts
+
+# ==========================
+# Misc
+# ==========================
+
+.DS_Store
+*.pem
+.vercel
+.turbo
+
+# Editor directories and files
+.idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?

@@ -43,11 +43,18 @@ export function BrandProvider({ children }: { children: ReactNode }) {
     const { data, error: brandError } = await supabase
       .from("brands")
       .select("*")
-      .eq("brand_id", brandId)
-      .single();
+      .eq("brand_id", brandId.trim())
+      .maybeSingle();
 
     if (brandError) {
       setError(brandError.message);
+      return;
+    }
+
+    if (!data) {
+      setError(
+        `Brand not found for NEXT_PUBLIC_BRAND_ID (${brandId}). Run: SELECT brand_id FROM brands WHERE slug = 'buff'; and update .env.local`
+      );
       return;
     }
 

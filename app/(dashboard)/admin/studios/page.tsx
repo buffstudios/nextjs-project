@@ -55,7 +55,7 @@ export default function StudiosAdminPage() {
 }
 
 function StudiosAdminContent() {
-  const { brand } = useBrand();
+  const { brand, error: brandError } = useBrand();
   const isSuperAdmin = useIsSuperAdmin();
   const [studios, setStudios] = useState<Studio[]>([]);
   const [loading, setLoading] = useState(true);
@@ -66,7 +66,10 @@ function StudiosAdminContent() {
   const [error, setError] = useState<string | null>(null);
 
   const loadStudios = useCallback(async () => {
-    if (!brand) return;
+    if (!brand) {
+      setLoading(false);
+      return;
+    }
 
     const supabase = createClient();
     const { data, error: fetchError } = await supabase

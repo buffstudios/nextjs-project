@@ -31,7 +31,7 @@ export function BrandProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const brandId = process.env.NEXT_PUBLIC_BRAND_ID;
+  const brandId = process.env.NEXT_PUBLIC_BRAND_ID?.trim();
 
   const loadBrand = useCallback(async () => {
     if (!brandId) {

@@ -2,17 +2,26 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { useIsSuperAdmin } from "@/lib/brand";
+import { useBrand } from "@/lib/brand";
 
 export function SuperAdminGuard({ children }: { children: React.ReactNode }) {
-  const isSuperAdmin = useIsSuperAdmin();
+  const { userRole, loading } = useBrand();
+  const isSuperAdmin = userRole?.role === "super_admin";
   const router = useRouter();
 
   useEffect(() => {
-    if (!isSuperAdmin) {
+    if (!loading && !isSuperAdmin) {
       router.replace("/dashboard");
     }
-  }, [isSuperAdmin, router]);
+  }, [loading, isSuperAdmin, router]);
+
+  if (loading) {
+    return (
+      <div className="flex h-full items-center justify-center p-8">
+        <p className="text-muted-foreground">Loading...</p>
+      </div>
+    );
+  }
 
   if (!isSuperAdmin) {
     return (

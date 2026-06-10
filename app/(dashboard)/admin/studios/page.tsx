@@ -177,7 +177,9 @@ function StudiosAdminContent() {
         </Button>
       </div>
 
-      {error && <p className="mt-4 text-sm text-destructive">{error}</p>}
+      {(brandError || error) && (
+        <p className="mt-4 text-sm text-destructive">{brandError ?? error}</p>
+      )}
 
       <div className="mt-6 rounded-lg border">
         <Table>

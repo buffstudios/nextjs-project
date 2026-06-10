@@ -19,12 +19,14 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) for multi-brand and payment abs
 
 ## Current status
 
-**Sprint 1 — Foundation** (complete in codebase)
+**Sprint 1 — Foundation** ✓  
+**Sprint 2 — Client Profiles** ✓
 
-- Multi-brand Supabase schema + RLS
-- Brand context hook (`useBrand()`) with dynamic theming
-- Auth + middleware
-- Studio, staff, and KPI config admin screens
-- Sidebar navigation shell
+- Client list with search, filters, retention badges
+- Client detail with visit/metrics/communications tabs
+- New client form with AU mobile validation + duplicate detection
+- `client_metrics` view (visit data populates in Sprint 3)
 
-Sprints 2–8 (clients, booking, POS, KPI dashboard, etc.) are planned per the Vibe Coding Playbook.
+See [docs/SPRINT2_SETUP.md](docs/SPRINT2_SETUP.md) for Sprint 2 SQL migration.
+
+Sprints 3–8 (booking, POS, KPI dashboard, etc.) are planned per the Vibe Coding Playbook.

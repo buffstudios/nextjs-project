@@ -16,6 +16,29 @@ export type UserRoleType =
   | "jv_partner"
   | "finance_viewer";
 
+export type AcquisitionSource =
+  | "walk_in"
+  | "google"
+  | "instagram"
+  | "referral"
+  | "gift_card"
+  | "corporate"
+  | "other";
+
+export type CommunicationChannel = "sms" | "email";
+export type CommunicationDirection = "outbound" | "inbound";
+export type CommunicationTrigger =
+  | "booking_confirmation"
+  | "reminder_24h"
+  | "reminder_2h"
+  | "rebooking_prompt"
+  | "lapsed_winback"
+  | "birthday"
+  | "campaign"
+  | "manual";
+
+export type RetentionStatus = "active" | "at_risk" | "lapsed";
+
 export interface Brand {
   brand_id: string;
   brand_name: string;
@@ -94,6 +117,54 @@ export interface UserRole {
   studio_id: string | null;
 }
 
+export interface Client {
+  client_id: string;
+  brand_id: string;
+  first_name: string;
+  last_name: string;
+  mobile: string;
+  email: string | null;
+  date_of_birth: string | null;
+  home_studio_id: string | null;
+  preferred_staff_id: string | null;
+  acquisition_source: AcquisitionSource;
+  acquisition_date: string;
+  acquisition_studio_id: string | null;
+  new_client_discount_applied: boolean;
+  marketing_opt_in: boolean;
+  notes: string | null;
+  vip_flag: boolean;
+  is_active: boolean;
+  created_at: string;
+}
+
+export interface ClientCommunicationLog {
+  log_id: string;
+  brand_id: string;
+  client_id: string;
+  studio_id: string | null;
+  channel: CommunicationChannel;
+  direction: CommunicationDirection;
+  trigger_type: CommunicationTrigger;
+  sent_at: string;
+  opened: boolean | null;
+  clicked: boolean | null;
+  converted_to_booking: boolean;
+  appointment_id: string | null;
+  message_preview: string | null;
+}
+
+export interface ClientMetrics {
+  client_id: string;
+  brand_id: string;
+  total_visits: number;
+  last_visit_date: string | null;
+  days_since_last_visit: number | null;
+  average_invoice_value: number;
+  lifetime_value: number;
+  retention_status: RetentionStatus;
+}
+
 export interface Database {
   public: {
     Tables: {
@@ -160,9 +231,27 @@ export interface Database {
         Update: Partial<Omit<UserRole, "id" | "user_id" | "brand_id">>;
         Relationships: [];
       };
+      clients: {
+        Row: Client;
+        Insert: Omit<Client, "client_id" | "created_at"> & {
+          client_id?: string;
+          created_at?: string;
+        };
+        Update: Partial<Omit<Client, "client_id" | "brand_id">>;
+        Relationships: [];
+      };
+      client_communication_log: {
+        Row: ClientCommunicationLog;
+        Insert: Omit<ClientCommunicationLog, "log_id"> & { log_id?: string };
+        Update: Partial<Omit<ClientCommunicationLog, "log_id" | "brand_id">>;
+        Relationships: [];
+      };
     };
     Views: {
-      [_ in never]: never;
+      client_metrics: {
+        Row: ClientMetrics;
+        Relationships: [];
+      };
     };
     Functions: {
       [_ in never]: never;
